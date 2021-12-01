@@ -12,6 +12,7 @@ The python script requires:
 - matplotlib
 
 All packages required and version are stored in **requirements.txt**
+
 Install as follow:
 
 ```sh
