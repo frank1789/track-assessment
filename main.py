@@ -59,6 +59,9 @@ if __name__ == '__main__':
     data = ParseData()
     data.load_from_file(filename)
 
+    # Access data as dataframe
+    print(data.get_as_datadrame().head())
+
     # Try to compute average speed for all laps
     # very simple analysis extract only mean, variance and std-dev
     print("Speed average among 3 laps\n{}".format("-" * 79))
@@ -89,14 +92,45 @@ if __name__ == '__main__':
 
     ####################################################################################################################
     # Combine plots to show physical dimensions on track
-    fig1 = plt.figure(1001)
+    # lap 1
+    fig_lap_one = plt.figure(1001, figsize=(10, 7))
+    plt.title(u"Lap: {:2}/{}".format(1, 3))
     ax = plt.axes(projection="3d")
     ax.plot(data.GPSLatCoord[0:1970], data.GPSLongCoord[0:1970], 'gray', label="Track")
     scatter_plot = ax.scatter3D(data.GPSLatCoord[0:1970], data.GPSLongCoord[0:1970], data.Speed[0:1970],
                                 c=data.Speed[0:1970], cmap='plasma', label="Speed")
     plt.colorbar(scatter_plot, label='Speed')
     plt.legend(loc="upper left")
-    print("close the figure window to continue...")
+    ax.set_xlabel("GPSLatCoord")
+    ax.set_ylabel("GPSLongCoord")
+    ax.set_zlabel("Speed")
+
+    # lap 2
+    fig_lap_two = plt.figure(1002, figsize=(10, 7))
+    plt.title(u"Lap: {:2}/{}".format(2, 3))
+    ax = plt.axes(projection="3d")
+    ax.plot(data.GPSLatCoord[1971:3943], data.GPSLongCoord[1971:3943], 'gray', label="Track")
+    scatter_plot = ax.scatter3D(data.GPSLatCoord[1971:3943], data.GPSLongCoord[1971:3943], data.Speed[1971:3943],
+                                c=data.Speed[1971:3943], cmap='plasma', label="Speed")
+    plt.colorbar(scatter_plot, label='Speed')
+    plt.legend(loc="upper left")
+    ax.set_xlabel("GPSLatCoord")
+    ax.set_ylabel("GPSLongCoord")
+    ax.set_zlabel("Speed")
+
+    # lap 3
+    fig_lap_three = plt.figure(1003, figsize=(10, 7))
+    plt.title(u"Lap: {:2}/{}".format(3, 3))
+    ax = plt.axes(projection="3d")
+    ax.plot(data.GPSLatCoord[3943:-1], data.GPSLongCoord[3943:-1], 'gray', label="Track")
+    scatter_plot = ax.scatter3D(data.GPSLatCoord[3943:-1], data.GPSLongCoord[3943:-1], data.Speed[3943:-1],
+                                c=data.Speed[3943:-1], cmap='plasma', label="Speed")
+    plt.colorbar(scatter_plot, label='Speed')
+    plt.legend(loc="upper left")
+    ax.set_xlabel("GPSLatCoord")
+    ax.set_ylabel("GPSLongCoord")
+    ax.set_zlabel("Speed")
+    print("close all the figure window to continue...")
     plt.show()
 
     ####################################################################################################################
@@ -108,11 +142,11 @@ if __name__ == '__main__':
         plt.cla()
         plt.title(u"Lap: {:2}/{}".format(int(data.LapNumber[i]), int(max(data.LapNumber))))
         if data.LapNumber[i] == 1.0:
-            plt.plot(data.GPSLatCoord[0:1970], data.GPSLongCoord[0:1970], ".k", label="Lap 1")
+            plt.plot(data.GPSLatCoord[0:1970], data.GPSLongCoord[0:1970], "-", c="gray", label="Track Lap 1")
         if data.LapNumber[i] == 2.0:
-            plt.plot(data.GPSLatCoord[1971:3943], data.GPSLongCoord[1971:3943], "--b", label="Lap 2")
+            plt.plot(data.GPSLatCoord[1971:3943], data.GPSLongCoord[1971:3943], "-", c="gray", label="Track Lap 2")
         if data.LapNumber[i] == 3.0:
-            plt.plot(data.GPSLatCoord[3943:-1], data.GPSLongCoord[3943:-1], "-.g", label="Lap 3")
+            plt.plot(data.GPSLatCoord[3943:-1], data.GPSLongCoord[3943:-1], "-", c="gray", label="Track Lap 3")
 
         plt.plot(data.GPSLatCoord[i], data.GPSLongCoord[i], ".r", label="Car")
         plt.text(data.GPSLatCoord[i], data.GPSLongCoord[i], "v: {:1.2} s: {:1.2} b: {:1.2}".format(

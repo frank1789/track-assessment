@@ -1,10 +1,12 @@
 import numpy as np
+import pandas
 
 
 class ParseData:
     """
     Simple class to parse csv file and store information in attributes easily to access and manipulate
     """
+
     def __init__(self, filename=None):
         self.LapNumber = np.empty(1000000)
         self.LapDistance = np.empty(1000000)
@@ -25,6 +27,7 @@ class ParseData:
         self.CornerPhase = np.empty(1000000)
         self.GPSLatCoord = np.empty(1000000)
         self.GPSLongCoord = np.empty(1000000)
+        self.df = None
 
         if filename is not None:
             self.load_from_file(filename)
@@ -56,3 +59,11 @@ class ParseData:
         self.CornerPhase = rawdata[1:, 16]
         self.GPSLatCoord = rawdata[1:, 17]
         self.GPSLongCoord = rawdata[1:, 18]
+
+        # import missing value as string and treat information as dataframe
+        # more flexible for future manipulation
+        self.df = pandas.read_csv(filename)
+        self.CornerPhase = self.df["CornerPhase"]
+
+    def get_as_datadrame(self):
+        return self.df
