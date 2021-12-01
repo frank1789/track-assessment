@@ -22,8 +22,10 @@ pip install -r requirements.txt
 
 ## Execute
 
+To run script:
+
 ```sh
+cd /path/to/track-assessment
 python3 main.py
 ```
-
-Ensure the folder *track-assessment* contains the **Trackdata.csv**
+> Make sure you are in the *track-assessment* folder that contains contains the **Trackdata.csv** file, before running the script
