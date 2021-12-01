@@ -1,4 +1,5 @@
 import sys
+import os
 
 import matplotlib.pyplot as plt
 
@@ -53,7 +54,7 @@ def compute_mean_variance_single_lap(data: ParseData) -> list:
 
 if __name__ == '__main__':
     # path to the resource
-    filename = "/Users/francesco/Documents/Project/TaskF1/Trackdata.csv"
+    filename = os.getcwd() + "/Trackdata.csv"
 
     # import data
     data = ParseData()
