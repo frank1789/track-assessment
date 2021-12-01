@@ -16,8 +16,8 @@ All packages required and version are stored in **requirements.txt**
 Install as follow:
 
 ```sh
-cd track-assessment
-pip install -r /path/to/requirements.txt
+cd /path/to/track-assessment
+pip install -r requirements.txt
 ```
 
 ## Execute
